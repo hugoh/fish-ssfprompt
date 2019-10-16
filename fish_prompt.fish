@@ -29,10 +29,12 @@ function fish_prompt
     echo -n (prompt_pwd)
     if test $last_status -eq 0
       set_color $fish_color_separator
+      echo -n " "
     else
       set_color $fish_color_separator_error
+      echo -n "!"
     end
-    echo -n " > "
+    echo -n "> "
     set_color normal
 end
 
