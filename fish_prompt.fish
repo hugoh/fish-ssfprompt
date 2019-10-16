@@ -4,6 +4,7 @@ set fish_color_user blue
 set fish_color_host green
 set fish_color_cwd cyan
 set fish_color_separator yellow
+set fish_color_separator_error red
 
 set __fish_git_prompt_show_informative_status 1
 set __fish_git_prompt_showcolorhints 'yes'
@@ -17,6 +18,7 @@ else
 end
 
 function fish_prompt
+    set -l last_status $status
     set_color $fish_color_user
     echo -n $USER
     set_color $fish_color_separator
@@ -25,7 +27,11 @@ function fish_prompt
     echo -n $__fish_prompt_hostname" "
     set_color $fish_color_cwd
     echo -n (prompt_pwd)
-    set_color $fish_color_separator
+    if test $last_status -eq 0
+      set_color $fish_color_separator
+    else
+      set_color $fish_color_separator_error
+    end
     echo -n " > "
     set_color normal
 end
