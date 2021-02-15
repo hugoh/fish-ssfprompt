@@ -11,20 +11,16 @@ set __fish_git_prompt_showcolorhints 'yes'
 set __fish_git_prompt_showdirtystate 'yes'
 set __fish_git_prompt_showupstream 'auto'
 
-if set -q SSH_CONNECTION
-  set __fish_prompt_hostname (prompt_hostname)
-else
-  set __fish_prompt_hostname ''
-end
-
 function fish_prompt
     set -l last_status $status
-    set_color $fish_color_user
-    echo -n $USER
-    set_color $fish_color_separator
-    echo -n "@"
-    set_color $fish_color_host
-    echo -n $__fish_prompt_hostname" "
+    if set -q SSH_CONNECTION
+        set_color $fish_color_user
+        echo -n $USER
+        set_color $fish_color_separator
+        echo -n "@"
+        set_color $fish_color_host
+        echo -n (prompt_hostname)" " 
+    end
     set_color $fish_color_cwd
     echo -n (prompt_pwd)
     if test $last_status -eq 0
